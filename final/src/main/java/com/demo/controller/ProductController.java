@@ -32,6 +32,18 @@ public class ProductController {
     public String home(){
         return "product/home";
     }
+    @RequestMapping("/about")
+    public String about(){
+        return "product/about";
+    }
+    @RequestMapping("/contact")
+    public String contact(){
+        return "product/contact";
+    }
+    @RequestMapping("/news")
+    public String news(){
+        return "product/news";
+    }
 
     @RequestMapping("/product/list")
     public String list(Model model, @RequestParam("cid")Optional<Long> cid){

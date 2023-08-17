@@ -4,7 +4,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/6432a84392.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<link rel="stylesheet" href="/css/home.css">
+<%--<link rel="stylesheet" href="/css/home.css">--%>
 
 <div class="container">
     <div id="carouselExampleIndicators" class="carousel slide">
@@ -156,24 +156,19 @@
 
 <%--Conten2--%>
 
-<div class="anhdong">
-    <div class="frame">
-        <div class="scrolling-image"></div>
-    </div>
-</div>
+<%--Content3--%>
 
-
-<div class="container-fluid" style="margin-top: 30px">
-    <div class="container col-lg-12" style="border-bottom: 1px solid black">
-        <h3>Sản phẩm mới</h3>
+<div class="container-fluid" style="margin-top: 85px">
+    <div class="container col-lg-12" style  ="border-bottom: 1px solid black">
+        <h3>Sản phẩm giảm giá</h3>
     </div>
 </div>
 <div class="row" style="margin-top: 25px">
     <div class="col-lg-1 d-flex justify-content-end bton">
-        <button ng-click="pagerMoi.prev()" class="btn btn-light" style="font-size: 30px"><</button>
+        <button ng-click="pagerGiamGia.prev()" class="btn btn-light" style="font-size: 30px"><</button>
     </div>
     <div class="col-lg-10 row">
-        <div class="col-lg-3" ng-repeat="item in pagerMoi.items">
+        <div class="col-lg-3" ng-repeat="item in pagerGiamGia.items">
             <div class="panel panel-primary poly-item text-center">
                 <div class="panel-heading">
                     <div style="font-size: 18px" class=" text text-danger">{{item.ten}}</div>
@@ -194,7 +189,7 @@
         </div>
     </div>
     <div class="col-lg-1 d-flex justify-content-start bton">
-        <button ng-click="pagerMoi.next()" class="btn btn-light " style="font-size: 30px;margin-left: 10px">></button>
+        <button ng-click="pagerGiamGia.next()" class="btn btn-light " style="font-size: 30px;margin-left: 10px">></button>
     </div>
 </div>
 

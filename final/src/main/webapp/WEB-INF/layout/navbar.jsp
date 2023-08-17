@@ -15,6 +15,9 @@
                            <li><a class="dropdown-item" href="#profile">Cá nhân</a></li>
                            <li><a class="dropdown-item" href="/order/list">Lịch sử mua hàng</a></li>
                            <li><hr class="dropdown-divider"></li>
+                           <c:if test="${pageContext.request.isUserInRole('DIRE') or pageContext.request.isUserInRole('STAF')}">
+                               <li><a class="dropdown-item" href="/admin">Administrator</a></li>
+                           </c:if>
                            <li><a class="dropdown-item" href="#changePass">Đổi mật khẩu</a></li>
                            <li><a class="dropdown-item" href="/security/logoff">Đăng xuất</a></li>
                        </ul>
@@ -43,10 +46,10 @@
     <hr style="color: white; margin: 0px;padding: 0px;width: 100%">
     <nav class="col-lg-12 d-flex justify-content-center align-items-center" style="padding-right: 120px">
         <a href="/home">Trang chủ</a>
-        <a href="#about">Giới thiệu</a>
+        <a href="/about">Giới thiệu</a>
         <a href="/product/list">Sản phẩm</a>
-        <a href="#contact">Tin tức</a>
-        <a href="#contact">Liên hệ</a>
+        <a href="/contact">Tin tức</a>
+        <a href="/contact">Liên hệ</a>
     </nav>
 </div>
 <%--<nav class="navbar navbar-expand-lg navbar-dark bg-primary p-0">--%>

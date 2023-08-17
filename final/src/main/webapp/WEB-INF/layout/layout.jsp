@@ -13,6 +13,6 @@
 <div ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
     <div><tiles:insertAttribute name="navbar" /></div>
     <div style="margin-top: 20px" id="main"><tiles:insertAttribute name="body" /></div>
-    <div><tiles:insertAttribute name="footer" /></div>
+    <div style="margin-top: 50px"><tiles:insertAttribute name="footer" /></div>
 </div>
 <script src="/js/shopping-cart-app.js"></script>

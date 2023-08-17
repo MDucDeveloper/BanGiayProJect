@@ -1,23 +1,23 @@
 const app = angular.module("shopping-cart-app",[]);
-const scrollingImage = document.querySelector('.scrolling-image');
-const frame = document.querySelector('.frame');
-
-window.addEventListener('scroll', () => {
-    const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-    const yAxis = (frame.clientHeight / 2) - (scrollPercent / 2);
-    scrollingImage.style.transform = `translateY(${yAxis}px)`;
-});
+// const scrollingImage = document.querySelector('.scrolling-image');
+// const frame = document.querySelector('.frame');
+//
+// window.addEventListener('scroll', () => {
+//     const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+//     const yAxis = (frame.clientHeight / 2) - (scrollPercent / 2);
+//     scrollingImage.style.transform = `translateY(${yAxis}px)`;
+// });
 
 app.controller("shopping-cart-ctrl", function ($scope, $http) {
     // Đảm bảo rằng đã inject $http vào controller
     $scope.spBanChay = [];
-    $scope.spNoiBat = [];
+    $scope.spGiamGia = [];
     $scope.spMoi = [];
     $scope.initialize = function (){
         $http.get("/rest/products").then(resp=>{
             $scope.spBanChay = resp.data;
             $scope.spMoi = resp.data;
-            $scope.spNoiBat = resp.data;
+            $scope.spGiamGia = resp.data;
         })
     }
     $scope.pager = {
@@ -78,6 +78,36 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             this.page = this.count -1;
         }
     };
+    $scope.pagerGiamGia = {
+        page:0,
+        size:4,
+        get items(){
+            const start = this.page * this.size;
+            return $scope.spMoi.slice(start,start+this.size);
+        },
+        get count(){
+            return Math.ceil(1*$scope.spMoi.length/this.size);
+        },
+        first(){
+            this.page = 0;
+        },
+        prev(){
+            this.page--;
+            if(this.page<0){
+                this.last();
+            }
+        },
+        next(){
+            this.page++;
+            if(this.page>(this.count-1)){
+                this.first();
+            }
+        },
+        last(){
+            this.page = this.count -1;
+        }
+    };
+
     $scope.cart = {
         items: [],
         add: function (id) {
