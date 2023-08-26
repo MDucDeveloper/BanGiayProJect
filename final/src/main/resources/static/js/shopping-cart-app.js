@@ -1,24 +1,37 @@
 const app = angular.module("shopping-cart-app",[]);
-// const scrollingImage = document.querySelector('.scrolling-image');
-// const frame = document.querySelector('.frame');
-//
-// window.addEventListener('scroll', () => {
-//     const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-//     const yAxis = (frame.clientHeight / 2) - (scrollPercent / 2);
-//     scrollingImage.style.transform = `translateY(${yAxis}px)`;
-// });
 
-app.controller("shopping-cart-ctrl", function ($scope, $http) {
+app.controller("shopping-cart-ctrl", function ($scope, $http,$location) {
+    $scope.selectedRow = {
+        data: "",
+        id: ""
+    };
+
+    // ...
+    const tableRows = document.querySelectorAll('.table-row');
+    tableRows.forEach(row => {
+        row.addEventListener('click', () => {
+            tableRows.forEach(row => {
+                row.classList.remove('table-active');
+            });
+            row.classList.add('table-active');
+            $scope.selectedRow.data = row.querySelector('td').textContent;
+            $scope.selectedRow.id = row.getAttribute('data-id');
+        });
+    });
     // Đảm bảo rằng đã inject $http vào controller
     $scope.spBanChay = [];
     $scope.spGiamGia = [];
     $scope.spMoi = [];
+    $scope.thuonghieus = [];
     $scope.initialize = function (){
         $http.get("/rest/products").then(resp=>{
             $scope.spBanChay = resp.data;
             $scope.spMoi = resp.data;
             $scope.spGiamGia = resp.data;
-        })
+        });
+        $http.get("/rest/references/thuonghieu").then(resp=>{
+            $scope.thuonghieus = resp.data;
+        });
     }
     $scope.pager = {
         page:0,
@@ -108,6 +121,59 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         }
     };
 
+    $scope.thanhtoanngay={
+        items: [],
+        add: function (id) {
+            var item = this.items.find(function (item) {
+                return item.id == id;
+            });
+            if (item) {
+                item.qty++;
+                this.saveToLocalStorage();
+            } else {
+                $http.get(`/rest/products/${id}`).then(function (resp) {
+                    resp.data.qty = 1;
+                    this.items.push(resp.data);
+                    this.saveToLocalStorage();
+                }.bind(this)); // Sử dụng bind để đảm bảo this đúng context trong hàm callback
+            }
+        },
+        //Luu gio hang vao localstorage
+        saveToLocalStorage: function () {
+            var json = JSON.stringify(angular.copy(this.items));
+            localStorage.setItem("cartmuangay", json);
+        },
+
+        //Tong so luong cac mat hang trong gio
+        get count(){
+            return this.items.map(item => item.qty).reduce((total,qty) => total += qty,0);
+        },
+
+        //Tong tien cac mat hang trong gio
+        get amount(){
+            return this.items.map(item => item.qty * item.gia).reduce((total,qty) => total += qty,0);
+        },
+        //Doc gio hang tu localstorage
+        loadFromLocalStorage(){
+            var json = localStorage.getItem("cartmuangay");
+            this.items = json? JSON.parse(json):[];
+            // var date = new Date();
+            // alert('Hom nay la ngay'+ date);
+        },
+        clear(){
+            this.items = [];
+            this.saveToLocalStorage();
+        },
+        actionMuaNgay(id){
+            this.clear();
+            this.add(id);
+            this.saveToLocalStorage();
+            this.loadFromLocalStorage();
+            window.location.href='/order/checkout';
+        }
+    }
+    $scope.thanhtoanngay.loadFromLocalStorage();
+
     $scope.cart = {
         items: [],
         add: function (id) {
@@ -158,6 +224,10 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             this.items = [];
             this.saveToLocalStorage();
         },
+        purchase() {
+            window.location.href="/order/checkout"
+            $scope.thanhtoanngay.clear();
+        }
     };
 
     $scope.cart.loadFromLocalStorage();
@@ -170,6 +240,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     $scope.order={
         ngaydathang:new Date(),
         diachi:"",
+        sdt:"",
         tongtien:$scope.cart.amount,
         purchase(){
             var order = angular.copy(this);
@@ -183,6 +254,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                 console.log(e);
             })
         },
+
         get orderDetails(){
             return $scope.cart.items.map(item =>{
                 return{
@@ -193,7 +265,69 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             })
         }
     }
+    $scope.orderofTTN={
+        ngaydathang:new Date(),
+        diachi:"",
+        sdt:"",
+        tongtien:$scope.thanhtoanngay.amount,
+        purchase(){
+            var order = angular.copy(this);
+            //Thuc hien dat hang
+            $http.post("/rest/orders",order).then(resp =>{
+                location.href = "/order/detail/"+resp.data.id;
+                alert("Dat hang thanh cong!");
+            }).catch(e =>{
+                alert("Loi dat hang!");
+                console.log(e);
+            })
+        },
 
+        get orderDetails(){
+            return $scope.thanhtoanngay.items.map(item =>{
+                return{
+                    product:{id:item.id},
+                    giaban:item.gia,
+                    soluong:item.qty,
+                }
+            })
+        }
+    }
+    $scope.showConfirm = false; // Ẩn hộp thoại xác nhận ban đầu
+
+    // Hiển thị hộp thoại xác nhận
+    $scope.showConfirmDialog = function() {
+        $scope.showConfirm = true;
+    };
+
+    // Hủy bỏ việc xóa
+    $scope.cancelDelete = function() {
+        $scope.showConfirm = false;
+    };
+
+    // Xác nhận xóa
+    $scope.confirmDelete = function() {
+        $scope.cart.clear(); // Thực hiện xóa
+        $scope.showConfirm = false; // Ẩn hộp thoại xác nhận sau khi xóa
+    };
+   // alert("heelo" + window.location.pathname);
     $scope.initialize();
+
+    //List
+    $scope.filters = {
+        priceFrom: '',
+        priceTo: '',
+        brands: [],
+        sizes: [],
+        colors: []
+    };
+
+    $scope.applyFilters = function() {
+        console.log('Applied Filters:', $scope.filters);
+        console.log($scope.selectedRow.data+"/"+$scope.selectedRow.id);
+        location.href = "/product/lists"+"?priceFrom="+$scope.filters.priceFrom+"&priceTo="+$scope.filters.priceTo
+        +"&brands="+$scope.selectedRow.id+"&sizes="+$scope.filters.sizes+"&colors="+$scope.filters.colors;
+        // Thêm xử lý gọi API ở đây để thực hiện tìm kiếm
+    };
+
 });
 

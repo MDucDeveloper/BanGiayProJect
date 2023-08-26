@@ -29,6 +29,7 @@ public class Order implements Serializable {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date ngaydathang = new Date();
+    String sdt;
     Integer tongtien;
     String diachi;
     @ManyToOne

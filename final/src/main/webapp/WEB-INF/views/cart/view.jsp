@@ -9,31 +9,40 @@
 <div  class="container">
     <table class="table table-hover" name="table">
         <thead>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th colspan="2">Quantity</th>
-            <th>Amount</th>
+            <th>#</th>
+            <th>Tên</th>
+            <th>Giá</th>
+            <th colspan="2">Số lượng</th>
+            <th>Tổng tiền</th>
         </thead>
         <tbody>
             <tr ng-repeat="item in cart.items">
-                <td>{{item.id}}</td>
+                <td>
+                    <div class="align-items-center">
+                        <img src="/images/{{item.image}}" alt="?" height="50px" width="50px">
+                    </div>
+                </td>
                 <td>{{item.ten}}</td>
                 <td>{{item.gia}}</td>
                 <td>{{item.qty}}</td>
                 <td><input ng-change="cart.saveToLocalStorage()" ng-model="item.qty" type="number" min="1" style="width: 50px"></td>
                 <td>{{item.qty*item.gia}}</td>
                 <td>
-                    <button ng-click="cart.remove(item.id)" class="btn btn-danger">Delete</button>
+                    <button ng-click="cart.remove(item.id)" class="btn btn-danger">Xóa</button>
                 </td>
             </tr>
         </tbody>
     </table>
     <div>
-        <button ng-click="cart.clear()" class="btn btn-dark">Clear</button>
-        <button class="btn btn-primary">
-            <a style="color: white" href="/order/checkout">Checkout</a>
-        </button>
+        <button ng-click="showConfirmDialog()" class="btn btn-dark">Xóa hết</button>
+        <button ng-click="cart.purchase()" class="btn btn-primary">Thanh toán</button>
+    </div>
+    <div ng-show="showConfirm">
+        <div class="confirm-dialog">
+            <p>Bạn có chắc chắn muốn xóa hết không?</p>
+            <button ng-click="cancelDelete()" class="btn btn-secondary">Hủy</button>
+            <button ng-click="confirmDelete()" class="btn btn-danger">Xóa</button>
+        </div>
     </div>
 
 </div>

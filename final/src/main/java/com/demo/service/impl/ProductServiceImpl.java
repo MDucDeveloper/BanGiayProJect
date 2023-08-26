@@ -42,4 +42,14 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Long id) {
          productDAO.deleteById(id);
     }
+
+    @Override
+    public List<Product> findAllReferences(Double pricefrom, Double priceto, Long idbrand, Long idsize, Long idcolor) {
+        return productDAO.findByReferences(pricefrom,priceto,idbrand,idsize,idcolor);
+    }
+
+    @Override
+    public List<Product> find3References(Long idbrand, Long idsize, Long idcolor) {
+        return productDAO.findThreeReferences(idbrand,idsize,idcolor);
+    }
 }

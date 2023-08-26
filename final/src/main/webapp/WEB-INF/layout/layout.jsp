@@ -5,6 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 
+
 <%--<style>--%>
 <%--    #main{--%>
 <%--        min-height: 100vh;--%>
@@ -12,7 +13,7 @@
 <%--</style>--%>
 <div ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
     <div><tiles:insertAttribute name="navbar" /></div>
-    <div style="margin-top: 20px" id="main"><tiles:insertAttribute name="body" /></div>
+    <div style="margin-top: 180px" id="main"><tiles:insertAttribute name="body" /></div>
     <div style="margin-top: 50px"><tiles:insertAttribute name="footer" /></div>
 </div>
 <script src="/js/shopping-cart-app.js"></script>

@@ -5,7 +5,7 @@
 <script src="https://kit.fontawesome.com/6432a84392.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
-<div class="container">
+<div class="container" style="min-height: 600px">
     <table class="table table-hover" name="table">
         <thead>
         <th>No</th>
@@ -23,7 +23,7 @@
                 <td>${item.ngaydathang}</td>
                 <td>${item.diachi}</td>
                <td>
-                   <a href="/order/detail/${item.id}">Click</a>
+                   <a style="text-decoration: none;color: blue" href="/order/detail/${item.id}">Click</a>
                </td>
             </tr>
             <c:set var="count" value="${count + 1}" /> <!-- Tăng biến đếm lên 1 sau mỗi lần lặp -->

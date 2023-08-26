@@ -24,7 +24,6 @@
     </div>
     <table class="table table-hover" name="table">
         <thead>
-        <th>Id</th>
         <th>Name</th>
         <th>Price</th>
         <th>Quantity</th>
@@ -33,7 +32,6 @@
         <tbody>
             <c:forEach items="${order.orderDetails}" var="item">
                 <tr>
-                    <td>${item.product.id}</td>
                     <td>${item.product.ten}</td>
                     <td>${item.giaban}</td>
                     <td>${item.soluong}</td>

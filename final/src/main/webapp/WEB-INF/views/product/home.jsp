@@ -3,8 +3,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/6432a84392.js" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<%--<link rel="stylesheet" href="/css/home.css">--%>
+<%--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>--%>
+<link rel="stylesheet" href="/css/home.css">
 
 <div class="container">
     <div id="carouselExampleIndicators" class="carousel slide">
@@ -85,7 +85,7 @@
                 </div>
                 <div class="panel-footer text-right">
                     <button ng-click="cart.add(item.id)" type="button" class="btn btn-light">Thêm vào giỏ hàng</button><br>
-                    <button type="button" class="btn btn-danger" style=" margin-top: 15px;"><a href="thanhtoan.html" style="text-decoration: none; color: white;">Mua ngay</a></button>
+                    <button ng-click="thanhtoanngay.actionMuaNgay(item.id)" type="button" class="btn btn-danger" style=" margin-top: 15px;">Mua ngay</button>
                 </div>
             </div>
         </div>
@@ -102,7 +102,7 @@
             <div id="ct_left" style="background-image: url(/images/ct1.jpg)">
                 <div style="margin-top: 70px; margin-left: 15px;">
                     <p>Đẳng cấp và sang trọng</p>
-                    <button type="button" class="btn btn-dark"><a href="#product" style="text-decoration: none; color: white;">Xem thêm</a></button>
+                    <button type="button" class="btn btn-dark"><a href="/product/list" style="text-decoration: none; color: white;">Xem thêm</a></button>
                 </div>
             </div>
         </div>
@@ -110,7 +110,7 @@
             <div id="ct_right"  style="background-image: url(/images/ct2.jpg)">
                 <div style="margin-top: 70px; margin-left: 15px;">
                     <p>Hiện đại và tinh tế</p>
-                    <button type="button" class="btn btn-dark"><a href="#product" style="text-decoration: none; color: white;">Xem thêm</a></button>
+                    <button type="button" class="btn btn-dark"><a href="/product/list" style="text-decoration: none; color: white;">Xem thêm</a></button>
                 </div>
             </div>
         </div>
@@ -144,7 +144,7 @@
                 </div>
                 <div class="panel-footer text-right">
                     <button ng-click="cart.add(item.id)" type="button" class="btn btn-light">Thêm vào giỏ hàng</button><br>
-                    <button type="button" class="btn btn-danger" style=" margin-top: 15px;"><a href="thanhtoan.html" style="text-decoration: none; color: white;">Mua ngay</a></button>
+                    <button ng-click="thanhtoanngay.actionMuaNgay(item.id)" type="button" class="btn btn-danger" style=" margin-top: 15px;">Mua ngay</button>
                 </div>
             </div>
         </div>
@@ -183,8 +183,8 @@
                 </div>
                 <div class="panel-footer text-right">
                     <button ng-click="cart.add(item.id)" type="button" class="btn btn-light">Thêm vào giỏ hàng</button><br>
-                    <button type="button" class="btn btn-danger" style=" margin-top: 15px;"><a href="thanhtoan.html" style="text-decoration: none; color: white;">Mua ngay</a></button>
-                </div>
+                    <button ng-click="thanhtoanngay.actionMuaNgay(item.id)" type="button" class="btn btn-danger" style=" margin-top: 15px;">Mua ngay</button>
+                    </div>
             </div>
         </div>
     </div>

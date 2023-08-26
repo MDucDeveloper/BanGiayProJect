@@ -17,4 +17,8 @@ public interface ProductService {
     Product update(Product product);
 
     void delete(Long id);
+
+    List<Product> findAllReferences(Double pricefrom, Double priceto, Long idbrand, Long idsize, Long idcolor);
+
+    List<Product> find3References(Long idbrand, Long idsize, Long idcolor);
 }

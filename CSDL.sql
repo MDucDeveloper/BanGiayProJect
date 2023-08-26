@@ -131,7 +131,7 @@ create table Product
 )
 go
 
-select * from Product
+select * from Product where  Id_kichco = 5
 
 
 
@@ -209,7 +209,6 @@ create table Hoadon
 	Id_account varchar(30) references Account(Username)
 )
 go
-
 
 --INSERT INTO Hoadon(Id_khachhang,Ngaydathang,Tongtien)
 --VALUES 
